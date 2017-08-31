@@ -44,12 +44,8 @@ namespace Hl7.Fhir.Rest
 
             result.Response.Location = response.Headers[HttpUtil.LOCATION] ?? response.Headers[HttpUtil.CONTENTLOCATION];
 
-#if !DOTNETFW
             if (!String.IsNullOrEmpty(response.Headers[HttpUtil.LASTMODIFIED]))
                     result.Response.LastModified = DateTimeOffset.Parse(response.Headers[HttpUtil.LASTMODIFIED]);
-#else
-            result.Response.LastModified = response.LastModified;
-#endif
             result.Response.Etag = getETag(response);                     
 
             if (body != null)
